@@ -23,18 +23,15 @@ import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.android.settingslib.CustomDialogPreference;
+import com.android.settingslib.CustomDialogPreferenceCompat;
 
-public class AnimationScalePreference extends CustomDialogPreference
+public class AnimationScalePreference extends CustomDialogPreferenceCompat
     implements SeekBar.OnSeekBarChangeListener {
 
     private TextView mScaleText;
     private IntervalSeekBar mSeekBar;
 
-    private float mScale = 0.8f;
-
-    private String summaryPrefix;
-    private String offSummary;
+    private float mScale = 0.5f;
 
     public AnimationScalePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -42,13 +39,6 @@ public class AnimationScalePreference extends CustomDialogPreference
         setNegativeButtonText(android.R.string.cancel);
 
         setDialogLayoutResource(R.layout.preference_dialog_animation_scale);
-
-        // Create summaries from existing strings so existing translations work
-        summaryPrefix = context.getResources().getStringArray(
-                R.array.window_animation_scale_entries)[1];
-        summaryPrefix = summaryPrefix.substring(0, summaryPrefix.indexOf(".5x"));
-        offSummary = context.getResources().getStringArray(
-                R.array.window_animation_scale_entries)[0];
     }
 
     @Override
@@ -65,10 +55,7 @@ public class AnimationScalePreference extends CustomDialogPreference
 
     public void setScale(float scale) {
         mScale = scale;
-        if (Float.compare(scale, 0) == 0)
-            setSummary(offSummary);
-        else
-            setSummary(summaryPrefix + String.valueOf(scale) + "x");
+        setSummary(String.valueOf(scale) + "x");
     }
 
     @Override
