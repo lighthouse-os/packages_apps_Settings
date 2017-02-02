@@ -238,6 +238,7 @@ public class Settings extends SettingsActivity {
     public static class SystemDashboardActivity extends SettingsActivity {}
     public static class SuppliesActivity extends SettingsActivity {}
     public static class SmartPixelsActivity extends SettingsActivity {}
+    public static class DevRunningServicesActivity extends SettingsActivity { /* empty */ }
 
     /**
      * Activity for MediaControlsSettings
