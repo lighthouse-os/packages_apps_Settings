@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2019 The Evolution X Project
+<!-- Copyright (C) 2019 The Project Lighthouse
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -41,5 +41,9 @@
     <!-- Quick unlock -->
     <string name="unlock_quick_unlock_control_title">Quick unlock</string>
     <string name="unlock_quick_unlock_control_summary">Unlock automatically when the correct PIN/password is entered</string>
+
+    <!-- Supplies -->
+    <string name="supplies_dashboard_title">Lighthouse Supplies</string>
+    <string name="supplies_dashboard_summary">Minimal, But Not Bare!</string>
 
 </resources>
