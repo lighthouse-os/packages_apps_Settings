@@ -21,6 +21,15 @@
     android:key="top_level_settings"
     android:title="Settings">
 
+    <Preference
+        android:fragment="com.lighthouse.settings.LighthouseSettings"
+        android:icon="@drawable/ic_settings_lighthouse"
+        android:key="top_level_supplies"
+        android:order="-160"
+        android:title="@string/supplies_dashboard_title"
+        android:summary="@string/supplies_dashboard_summary"
+        settings:controller="com.lighthouse.settings.TopLevelLighthouseSettingsPreferenceController"/>
+
     <com.android.settings.widget.HomepagePreference
         android:fragment="com.android.settings.network.NetworkDashboardFragment"
         android:icon="@drawable/ic_settings_wireless"
