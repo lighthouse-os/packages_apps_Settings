@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2019-2021 The Evolution X Project
+<!-- Copyright (C) 2019 The Project Lighthouse
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -156,4 +156,9 @@
     <!-- Idle Manager -->
     <string name="idle_manager_title">Idle Manager</string>
     <string name="idle_manager_summary">Stop all non-essential background processes when the device is idle</string>
+
+    <!-- Supplies -->
+    <string name="supplies_dashboard_title">Lighthouse Supplies</string>
+    <string name="supplies_dashboard_summary">Minimal, But Not Bare!</string>
+
 </resources>

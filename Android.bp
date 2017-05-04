@@ -47,7 +47,15 @@ android_library {
     srcs: ["src/**/*.java",
            "src/**/*.kt",
            "Supplies/src/**/*.kt",
+           "Supplies/src/**/*.java",
           ],
+
+    aaptflags: ["--extra-packages com.lighthouse.settings"],
+
+    resource_dirs: [
+        "res",
+        "Supplies/res",
+    ],
 
     static_libs: [
         "androidx-constraintlayout_constraintlayout",
@@ -89,6 +97,9 @@ android_library {
         "ims-common",
         "app-compat-annotations",
     ],
+    optimize: {
+        proguard_flags_files: ["proguard-core.flags"],
+    },
 }
 
 platform_compat_config {
