@@ -27,10 +27,14 @@ android_library {
         "SettingsLib-search-defaults",
     ],
 
-    srcs: ["src/**/*.java"],
+    srcs: ["src/**/*.java", 
+        "Supplies/src/**/*.java"],
+
+    aaptflags: ["--extra-packages org.lighthouse.supplies"],
 
     resource_dirs: ["res",
-                    "TouchGestures/res"
+                    "TouchGestures/res",
+                    "Supplies/res",
     ],
 
     static_libs: [
@@ -66,6 +70,9 @@ android_library {
         "ims-common",
         "app-compat-annotations",
     ],
+    optimize: {
+        proguard_flags_files: ["proguard-core.flags"],
+    }
 }
 
 platform_compat_config {

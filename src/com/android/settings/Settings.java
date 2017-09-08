@@ -240,4 +240,8 @@ public class Settings extends SettingsActivity {
      */
     public static class MediaControlsSettingsActivity extends SettingsActivity {}
 
+    /**
+     * Activity for Supplies
+     */
+    public static class SuppliesActivity extends SettingsActivity { /* empty */ }
 }
