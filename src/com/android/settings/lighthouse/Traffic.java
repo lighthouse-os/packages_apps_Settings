@@ -41,8 +41,8 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.android.settings.SettingsPreferenceFragment;
-import com.lighthouse.support.preferences.CustomSeekBarPreference;
-import com.lighthouse.support.preferences.SystemSettingSwitchPreference;
+import com.android.settings.lighthouse.preferences.CustomSeekBarPreference;
+import com.android.settings.lighthouse.preferences.SystemSettingSwitchPreference;
 import com.android.settings.Utils;
 import android.util.Log;
 
