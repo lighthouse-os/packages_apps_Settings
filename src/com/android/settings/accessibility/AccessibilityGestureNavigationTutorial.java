@@ -20,6 +20,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 import static com.android.settings.accessibility.AccessibilityUtil.UserShortcutType;
+import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_GESTURAL;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -29,42 +30,29 @@ import android.graphics.drawable.Drawable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextSwitcher;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.TextView;
 
-import androidx.annotation.AnimRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.IntDef;
-import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
-import androidx.core.util.Preconditions;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import com.android.settings.R;
-import com.android.settings.Utils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Utility class for creating the dialog that guides users for gesture navigation for
  * accessibility services.
  */
-public final class AccessibilityGestureNavigationTutorial {
+public class AccessibilityGestureNavigationTutorial {
+
     /** IntDef enum for dialog type. */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({
@@ -102,7 +90,7 @@ public final class AccessibilityGestureNavigationTutorial {
         final AlertDialog alertDialog = createDialog(context,
                 DialogType.LAUNCH_SERVICE_BY_ACCESSIBILITY_BUTTON);
 
-        if (!AccessibilityUtil.isGestureNavigateEnabled(context)) {
+        if (!isGestureNavigateEnabled(context)) {
             updateMessageWithIcon(context, alertDialog);
         }
 
@@ -111,13 +99,6 @@ public final class AccessibilityGestureNavigationTutorial {
 
     static AlertDialog showGestureNavigationTutorialDialog(Context context) {
         return createDialog(context, DialogType.LAUNCH_SERVICE_BY_GESTURE_NAVIGATION);
-    }
-
-    static AlertDialog createAccessibilityTutorialDialog(Context context, int shortcutTypes) {
-        return new AlertDialog.Builder(context)
-                .setView(createShortcutNavigationContentView(context, shortcutTypes))
-                .setNegativeButton(R.string.accessibility_tutorial_dialog_button, mOnClickListener)
-                .create();
     }
 
     /**
@@ -145,13 +126,13 @@ public final class AccessibilityGestureNavigationTutorial {
                         R.id.gesture_tutorial_video);
                 final TextView gestureTutorialMessage = content.findViewById(
                         R.id.gesture_tutorial_message);
-                VideoPlayer.create(context, AccessibilityUtil.isTouchExploreEnabled(context)
+                VideoPlayer.create(context, isTouchExploreOn(context)
                                 ? R.raw.illustration_accessibility_gesture_three_finger
                                 : R.raw.illustration_accessibility_gesture_two_finger,
                         gestureTutorialVideo);
-                gestureTutorialMessage.setText(AccessibilityUtil.isTouchExploreEnabled(context)
-                        ? R.string.accessibility_tutorial_dialog_message_gesture_talkback
-                        : R.string.accessibility_tutorial_dialog_message_gesture);
+                gestureTutorialMessage.setText(isTouchExploreOn(context)
+                        ? R.string.accessibility_tutorial_dialog_message_gesture_with_talkback
+                        : R.string.accessibility_tutorial_dialog_message_gesture_without_talkback);
                 break;
             case DialogType.GESTURE_NAVIGATION_SETTINGS:
                 content = inflater.inflate(
@@ -160,14 +141,14 @@ public final class AccessibilityGestureNavigationTutorial {
                         R.id.gesture_tutorial_video);
                 final TextView gestureSettingsTutorialMessage = content.findViewById(
                         R.id.gesture_tutorial_message);
-                VideoPlayer.create(context, AccessibilityUtil.isTouchExploreEnabled(context)
+                VideoPlayer.create(context, isTouchExploreOn(context)
                                 ? R.raw.illustration_accessibility_gesture_three_finger
                                 : R.raw.illustration_accessibility_gesture_two_finger,
                         gestureSettingsTutorialVideo);
-                final int stringResId = AccessibilityUtil.isTouchExploreEnabled(context)
-                        ? R.string.accessibility_tutorial_dialog_message_gesture_settings_talkback
-                        : R.string.accessibility_tutorial_dialog_message_gesture_settings;
-                gestureSettingsTutorialMessage.setText(stringResId);
+                gestureSettingsTutorialMessage.setText(isTouchExploreOn(context)
+                        ?
+                        R.string.accessibility_tutorial_dialog_message_gesture_settings_with_talkback
+                        : R.string.accessibility_tutorial_dialog_message_gesture_settings_without_talkback);
                 break;
         }
 
@@ -205,11 +186,10 @@ public final class AccessibilityGestureNavigationTutorial {
         final int indexIconStart = messageString.indexOf("%s");
         final int indexIconEnd = indexIconStart + 2;
         final Drawable icon = context.getDrawable(R.drawable.ic_accessibility_new);
-        final ImageSpan imageSpan = new ImageSpan(icon);
-        imageSpan.setContentDescription("");
+        icon.setTint(getThemeAttrColor(context, android.R.attr.textColorPrimary));
         icon.setBounds(0, 0, lineHeight, lineHeight);
         spannableMessage.setSpan(
-                imageSpan, indexIconStart, indexIconEnd,
+                new ImageSpan(icon), indexIconStart, indexIconEnd,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         return spannableMessage;
@@ -540,5 +520,16 @@ public final class AccessibilityGestureNavigationTutorial {
         public void onPageScrollStateChanged(int state) {
             // Do nothing.
         }
+    }
+}
+    private static boolean isGestureNavigateEnabled(Context context) {
+        return context.getResources().getInteger(
+                com.android.internal.R.integer.config_navBarInteractionMode)
+                == NAV_BAR_MODE_GESTURAL;
+    }
+
+    private static boolean isTouchExploreOn(Context context) {
+        return ((AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE))
+                .isTouchExplorationEnabled();
     }
 }

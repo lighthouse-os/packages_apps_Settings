@@ -17,6 +17,7 @@
 package com.android.settings.accessibility;
 
 import static com.android.settings.accessibility.AccessibilityStatsLogUtils.logAccessibilityServiceEnabled;
+import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_GESTURAL;
 
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.app.Activity;
@@ -26,6 +27,7 @@ import android.app.settings.SettingsEnums;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.content.pm.ServiceInfo;
@@ -53,9 +55,12 @@ import com.android.settingslib.accessibility.AccessibilityUtils;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/** Fragment for providing toggle bar and basic accessibility service setup. */
-public class ToggleAccessibilityServicePreferenceFragment extends
-        ToggleFeaturePreferenceFragment {
+public class ToggleAccessibilityServicePreferenceFragment
+        extends ToggleFeaturePreferenceFragment implements View.OnClickListener {
+
+    private static final int DIALOG_ID_ENABLE_WARNING = 1;
+    private static final int DIALOG_ID_DISABLE_WARNING = 2;
+    private static final int DIALOG_ID_LAUNCH_ACCESSIBILITY_TUTORIAL = 3;
 
     public static final int ACTIVITY_REQUEST_CONFIRM_CREDENTIAL_FOR_WEAKER_ENCRYPTION = 1;
     private LockPatternUtils mLockPatternUtils;
@@ -167,6 +172,16 @@ public class ToggleAccessibilityServicePreferenceFragment extends
                                 this::onDialogButtonFromDisableToggleClicked);
                 break;
             }
+            case DIALOG_ID_LAUNCH_ACCESSIBILITY_TUTORIAL: {
+                if (isGestureNavigateEnabled()) {
+                    mDialog = AccessibilityGestureNavigationTutorial
+                            .showGestureNavigationTutorialDialog(getActivity());
+                } else {
+                    mDialog = AccessibilityGestureNavigationTutorial
+                            .showAccessibilityButtonTutorialDialog(getActivity());
+                }
+                break;
+            }
             default: {
                 mDialog = super.onCreateDialog(dialogId);
             }
@@ -256,6 +271,52 @@ public class ToggleAccessibilityServicePreferenceFragment extends
                     return true;
                 }
             }
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.permission_enable_allow_button) {
+            if (isFullDiskEncrypted()) {
+                String title = createConfirmCredentialReasonMessage();
+                Intent intent = ConfirmDeviceCredentialActivity.createIntent(title, null);
+                startActivityForResult(intent,
+                        ACTIVITY_REQUEST_CONFIRM_CREDENTIAL_FOR_WEAKER_ENCRYPTION);
+            } else {
+                handleConfirmServiceEnabled(true);
+                if (isServiceSupportAccessibilityButton()) {
+                    showDialog(DIALOG_ID_LAUNCH_ACCESSIBILITY_TUTORIAL);
+                }
+            }
+        } else if (view.getId() == R.id.permission_enable_deny_button) {
+            handleConfirmServiceEnabled(false);
+        } else if (view.getId() == R.id.permission_disable_stop_button) {
+            handleConfirmServiceEnabled(false);
+        } else if (view.getId() == R.id.permission_disable_cancel_button) {
+            handleConfirmServiceEnabled(true);
+        } else {
+            throw new IllegalArgumentException();
+        }
+
+        return false;
+    }
+
+    private boolean isGestureNavigateEnabled() {
+        return getContext().getResources().getInteger(
+                com.android.internal.R.integer.config_navBarInteractionMode)
+                == NAV_BAR_MODE_GESTURAL;
+    }
+
+    private boolean isServiceSupportAccessibilityButton() {
+        final AccessibilityManager ams = (AccessibilityManager) getContext().getSystemService(
+                Context.ACCESSIBILITY_SERVICE);
+        final List<AccessibilityServiceInfo> services = ams.getInstalledAccessibilityServiceList();
+
+        for (AccessibilityServiceInfo info : services) {
+            if ((info.flags & AccessibilityServiceInfo.FLAG_REQUEST_ACCESSIBILITY_BUTTON) != 0) {
+                ServiceInfo serviceInfo = info.getResolveInfo().serviceInfo;
+                if (serviceInfo != null && TextUtils.equals(serviceInfo.name,
+                        getAccessibilityServiceInfo().getResolveInfo().serviceInfo.name)) {
+                    return true;
+                }
+            }
         }
 
         return false;
@@ -285,22 +346,21 @@ public class ToggleAccessibilityServicePreferenceFragment extends
     }
 
     @Override
-    protected void onInstallSwitchPreferenceToggleSwitch() {
-        super.onInstallSwitchPreferenceToggleSwitch();
-        mToggleServiceDividerSwitchPreference.setOnPreferenceClickListener(this::onPreferenceClick);
-    }
-
-    @Override
-    public void onToggleClicked(ShortcutPreference preference) {
-        final int shortcutTypes = getUserShortcutTypes(getPrefContext(), UserShortcutType.SOFTWARE);
-        if (preference.isChecked()) {
-            if (!mToggleServiceDividerSwitchPreference.isChecked()) {
-                preference.setChecked(false);
-                showPopupDialog(DialogEnums.ENABLE_WARNING_FROM_SHORTCUT_TOGGLE);
-            } else {
-                AccessibilityUtil.optInAllValuesToSettings(getPrefContext(), shortcutTypes,
-                        mComponentName);
-                showPopupDialog(DialogEnums.LAUNCH_ACCESSIBILITY_TUTORIAL);
+    protected void onInstallSwitchBarToggleSwitch() {
+        super.onInstallSwitchBarToggleSwitch();
+        mToggleSwitch.setOnBeforeCheckedChangeListener(new OnBeforeCheckedChangeListener() {
+            @Override
+            public boolean onBeforeCheckedChanged(ToggleSwitch toggleSwitch, boolean checked) {
+                if (checked) {
+                    mSwitchBar.setCheckedInternal(false);
+                    getArguments().putBoolean(AccessibilitySettings.EXTRA_CHECKED, false);
+                    showDialog(DIALOG_ID_ENABLE_WARNING);
+                } else {
+                    mSwitchBar.setCheckedInternal(true);
+                    getArguments().putBoolean(AccessibilitySettings.EXTRA_CHECKED, true);
+                    showDialog(DIALOG_ID_DISABLE_WARNING);
+                }
+                return true;
             }
         } else {
             AccessibilityUtil.optOutAllValuesFromSettings(getPrefContext(), shortcutTypes,

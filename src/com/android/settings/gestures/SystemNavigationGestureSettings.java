@@ -24,6 +24,8 @@ import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_GESTURAL_OV
 import static com.android.settings.widget.RadioButtonPreferenceWithExtraWidget.EXTRA_WIDGET_VISIBILITY_GONE;
 import static com.android.settings.widget.RadioButtonPreferenceWithExtraWidget.EXTRA_WIDGET_VISIBILITY_SETTING;
 
+import android.app.AlertDialog;
+import android.accessibilityservice.AccessibilityServiceInfo;
 import android.app.settings.SettingsEnums;
 import android.content.Context;
 import android.content.Intent;
@@ -32,6 +34,7 @@ import android.content.om.IOverlayManager;
 import android.content.om.OverlayInfo;
 import android.os.RemoteException;
 import android.os.ServiceManager;
+import android.provider.SearchIndexableResource;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.accessibility.AccessibilityManager;
@@ -39,6 +42,7 @@ import android.view.accessibility.AccessibilityManager;
 import androidx.annotation.VisibleForTesting;
 import androidx.preference.PreferenceScreen;
 
+import com.android.settings.SettingsTutorialDialogWrapperActivity;
 import com.android.settings.R;
 import com.android.settings.SettingsTutorialDialogWrapperActivity;
 import com.android.settings.dashboard.suggestions.SuggestionFeatureProvider;
@@ -285,9 +289,57 @@ public class SystemNavigationGestureSettings extends RadioButtonPickerFragment i
         return !targets.isEmpty();
     }
 
+    private boolean isAnyServiceSupportAccessibilityButton() {
+        final AccessibilityManager ams = (AccessibilityManager) getContext().getSystemService(
+                Context.ACCESSIBILITY_SERVICE);
+        final List<AccessibilityServiceInfo> services = ams.getEnabledAccessibilityServiceList(
+                AccessibilityServiceInfo.FEEDBACK_ALL_MASK);
+
+        for (AccessibilityServiceInfo info : services) {
+            if ((info.flags & AccessibilityServiceInfo.FLAG_REQUEST_ACCESSIBILITY_BUTTON) != 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private boolean isNavBarMagnificationEnabled() {
         return Settings.Secure.getInt(getContext().getContentResolver(),
                 Settings.Secure.ACCESSIBILITY_DISPLAY_MAGNIFICATION_NAVBAR_ENABLED, 0) == 1;
+    }
+
+    static class NavModeCandidateInfo extends CandidateInfo {
+        private final CharSequence mLabel;
+        private final CharSequence mSummary;
+        private final String mKey;
+
+        NavModeCandidateInfo(CharSequence label, CharSequence summary, String key,
+                boolean enabled) {
+            super(enabled);
+            mLabel = label;
+            mSummary = summary;
+            mKey = key;
+        }
+
+        @Override
+        public CharSequence loadLabel() {
+            return mLabel;
+        }
+
+        public CharSequence loadSummary() {
+            return mSummary;
+        }
+
+        @Override
+        public Drawable loadIcon() {
+            return null;
+        }
+
+        @Override
+        public String getKey() {
+            return mKey;
+        }
     }
 
     public static final BaseSearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
