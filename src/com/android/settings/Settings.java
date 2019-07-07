@@ -236,6 +236,7 @@ public class Settings extends SettingsActivity {
     public static class AccountDashboardActivity extends SettingsActivity {}
     public static class SystemDashboardActivity extends SettingsActivity {}
     public static class SuppliesActivity extends SettingsActivity {}
+    public static class SmartPixelsActivity extends SettingsActivity {}
 
     /**
      * Activity for MediaControlsSettings
@@ -244,5 +245,4 @@ public class Settings extends SettingsActivity {
 
     // LiveDisplay
     public static class LiveDisplaySettingsActivity extends SettingsActivity { /* empty */ }
-
 }

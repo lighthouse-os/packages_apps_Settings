@@ -163,6 +163,7 @@ import com.android.settings.wifi.tether.WifiTetherSettings;
 
 import com.lighthouse.settings.Supplies;
 import com.android.settings.livedisplay.LiveDisplaySettings;
+import com.lighthouse.settings.fragments.SmartPixels;
 
 public class SettingsGateway {
 
@@ -314,7 +315,8 @@ public class SettingsGateway {
             InteractAcrossProfilesDetails.class.getName(),
             MediaControlsSettings.class.getName(),
             Supplies.class.getName(),
-            LiveDisplaySettings.class.getName()
+            LiveDisplaySettings.class.getName(),
+            SmartPixels.class.getName(),
     };
 
     public static final String[] SETTINGS_FOR_RESTRICTED = {
@@ -355,5 +357,6 @@ public class SettingsGateway {
             Settings.ModuleLicensesActivity.class.getName(),
             UserBackupSettingsActivity.class.getName(),
             Settings.SuppliesActivity.class.getName(),
+            Settings.SmartPixelsActivity.class.getName()
     };
             }
