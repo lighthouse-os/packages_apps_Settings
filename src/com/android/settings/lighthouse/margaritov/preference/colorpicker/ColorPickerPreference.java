@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.android.settings.arrow.margaritov.preference.colorpicker;
+package com.android.settings.lighthouse.margaritov.preference.colorpicker;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -28,7 +28,7 @@ import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.v7.preference.*;
+import androidx.preference.*;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
