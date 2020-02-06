@@ -3051,6 +3051,8 @@
     <string name="system_update_settings_list_item_summary">""</string>
 
     <!-- About phone screen, status item label  [CHAR LIMIT=40] -->
+    <string name="lighthouse_device_model">Device Model</string>
+    <!-- About phone screen, status item label  [CHAR LIMIT=40] -->
     <string name="firmware_version">Android version</string>
     <!-- About phone screen, status item label  [CHAR LIMIT=40] -->
     <string name="custom_firmware_version">Lighthouse version</string>
