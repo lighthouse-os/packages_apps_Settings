@@ -27,6 +27,7 @@ import android.view.Display;
 import androidx.annotation.VisibleForTesting;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceScreen;
+import androidx.preference.SwitchPreference;
 
 import com.android.settings.R;
 import com.android.settings.core.TogglePreferenceController;
@@ -44,6 +45,7 @@ public class PeakRefreshRatePreferenceController extends TogglePreferenceControl
     @VisibleForTesting float mPeakRefreshRate;
 
     private static final String TAG = "RefreshRatePrefCtr";
+    private static final String KEY_PEAK_REFRESH_RATE_DEFAULT = "peak_refresh_rate_default";
     private static final float INVALIDATE_REFRESH_RATE = -1f;
 
     private final Handler mHandler;

@@ -466,4 +466,6 @@
     <!-- Whether device needs to force sec patch -->
     <bool name="config_needsCustomPatch">false</bool>
 
+    <!-- Whether to show Smooth Display feature in Settings Options -->
+    <bool name="config_show_smooth_display">false</bool>
 </resources>
