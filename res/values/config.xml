@@ -466,4 +466,7 @@
     <!-- Whether device needs to force sec patch -->
     <bool name="config_needsCustomPatch">false</bool>
 
+    <!-- Screen off FOD -->
+    <bool name="config_supportScreenOffFod">false</bool>
+
 </resources>
