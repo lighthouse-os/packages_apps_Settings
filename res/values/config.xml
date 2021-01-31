@@ -462,4 +462,8 @@
 
     <!-- Whether to show the Preference for Adaptive connectivity -->
     <bool name="config_show_adaptive_connectivity">false</bool>
+
+    <!-- Whether device needs to force sec patch -->
+    <bool name="config_needsCustomPatch">false</bool>
+
 </resources>
