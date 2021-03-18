@@ -22,5 +22,5 @@
         android:layout_height="100dp"
         android:adjustViewBounds="false"
         android:scaleType="centerInside"
-        android:src="@drawable/lighthousebanner" />
+        android:src="@drawable/ic_lighthouse_branding" />
 </LinearLayout>
