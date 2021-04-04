@@ -13,7 +13,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- Supplies -->
-    <string name="lighthouse_settings_dash_title">Personalization</string>
-    <string name="lighthouse_settings_summary">Additional settings</string>
+    <string name="lighthouse_settings_dash_title">Lighthouse Supplies</string>
+    <string name="lighthouse_settings_summary">Minimal But Not Bare</string>
 
 </resources>
