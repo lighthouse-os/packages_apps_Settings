@@ -75,5 +75,6 @@
      <!--   Lighthouse About Phone-->
     <string name="build_maintainer">Lighthouse Keeper</string>
     <string name="lighthouse_build_status">Lighthouse Service Status</string>
+    <string name="build_maintainer_summary">Spam Dev Moment.</string>
 
 </resources>
