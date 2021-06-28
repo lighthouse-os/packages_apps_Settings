@@ -19,6 +19,10 @@
     <!-- Global Actions -->
     <string name="global_actions_advanced_reboot_title">Enable advanced restart</string>
     <string name="global_actions_advanced_reboot_summary">Show options for recovery and bootloader</string> 
+    
+    <!-- Lighthouse maintainer -->
+    <string name="maintainer">Maintainer</string>
+    <string name="lighthouse_maintainer" translatable="false">Unofficial Maintainer</string>
 
     <!-- Battery stats reset -->
     <string name="smart_charging_reset_stats_title">Reset battery statistics</string>

@@ -106,11 +106,20 @@
         settings:enableCopying="true"
         settings:keywords="@string/keywords_model_and_hardware"
         settings:controller="com.android.settings.deviceinfo.HardwareInfoPreferenceController"/>
+        
+    <!-- Lighthouse maintainer -->  
+    <Preference
+        android:key="maintainer"
+        android:order="33"
+        android:title="@string/maintainer"
+        android:summary="@string/summary_placeholder"
+        settings:enableCopying="true"
+        settings:controller="com.android.settings.deviceinfo.lighthouse.LighthouseMaintainerPreferenceController"/>    
 
     <!-- IMEI -->
     <Preference
         android:key="imei_info"
-        android:order="32"
+        android:order="35"
         android:title="@string/status_imei"
         android:summary="@string/summary_placeholder"
         settings:keywords="@string/keywords_imei_info"
