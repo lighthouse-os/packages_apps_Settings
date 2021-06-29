@@ -316,9 +316,9 @@ public class SettingsGateway {
             InteractAcrossProfilesSettings.class.getName(),
             InteractAcrossProfilesDetails.class.getName(),
             MediaControlsSettings.class.getName(),
-            Supplies.class.getName()
-            LiveDisplaySettings.class.getName()
-            SmartPixels.class.getName(),
+            Supplies.class.getName(),
+            LiveDisplaySettings.class.getName(),
+            SmartPixels.class.getName()
     };
 
     public static final String[] SETTINGS_FOR_RESTRICTED = {
