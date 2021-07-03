@@ -12264,16 +12264,6 @@
     <!-- Bluetooth phonebook permission alert for dialog content [CHAR LIMIT=none] -->
     <string name="bluetooth_phonebook_access_dialog_content">An untrusted Bluetooth device, <xliff:g id="device_name" example="My device">%1$s</xliff:g>, wants to access your contacts and call log. This includes data about incoming and outgoing calls.\n\nYou haven\u2019t connected to <xliff:g id="device_name" example="My device">%2$s</xliff:g> before.</string>
 
-    <!-- Smart charging -->
-    <string name="smart_charging_title">Smart Charging</string>
-    <string name="smart_charging_summary">Set maximum charging level</string>
-    <string name="smart_charging_switch_title">Use Smart charging</string>
-    <string name="smart_charging_level_title">Stop trigger level</string>
-    <string name="smart_charging_resume_level_title">Start trigger level</string>
-    <string name="smart_charging_reset_stats_title">Reset battery statistics</string>
-    <string name="smart_charging_reset_stats_summary">Reset battery statistics after reaching user defined charging level</string>
-    <string name="smart_charging_footer">Smart Charging allows you to set maximum charging level to extend the lifespan of your battery</string>
-
     <!-- Ambient Wake gestures -->
     <string name="ambient_wake_gestures_title">Ambient wake gestures</string>
     <string name="ambient_wake_gestures_summary">Show Ambient Display instead of normal lockscreen on wake gestures</string>
