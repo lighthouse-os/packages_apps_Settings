@@ -26,6 +26,7 @@
         android:key="lighthouse_logo"
         android:order="-500"
         android:layout="@layout/lighthouse_logo" />
+
     <!-- Android version -->
     <Preference
         android:key="os_firmware_version"
@@ -35,6 +36,16 @@
         settings:searchable="false"
         settings:controller="com.android.settings.deviceinfo.firmwareversion.FirmwareVersionDetailPreferenceController"/>
 
+    <!-- Lighthouse version -->
+    <Preference
+        android:key="custom_firmware_version"
+        android:title="@string/custom_firmware_version"
+        android:summary="@string/summary_placeholder"
+        settings:enableCopying="true"
+        settings:searchable="false"
+        android:selectable="true"
+        settings:controller="com.android.settings.deviceinfo.firmwareversion.CustomFirmwareVersionPreferenceController"/>
+
     <!-- Security patch -->
     <Preference
         android:key="security_key"
@@ -42,7 +53,6 @@
         settings:enableCopying="true"
         settings:controller="com.android.settings.deviceinfo.firmwareversion.SecurityPatchLevelPreferenceController"/>
 
-    
     <!-- Device Model-->
     <Preference
         android:key="lighthouse_device_model"
@@ -50,14 +60,24 @@
         settings:enableCopying="true"
         settings:controller="com.android.settings.deviceinfo.firmwareversion.LighthouseModelPreferenceController"/>
 
-    <!-- Custom ROM version -->
+    <!-- Build maintainer -->
     <Preference
-        android:key="custom_firmware_version"
-        android:title="@string/custom_firmware_version"
+        android:key="os_build_maintainer"
+        android:title="@string/build_maintainer"
+        android:summary="@string/summary_placeholder"
+        settings:enableCopying="true"
+        settings:searchable="false"
+        android:selectable="true"
+        settings:controller="com.android.settings.deviceinfo.firmwareversion.LighthouseMaintainerPreferenceController"/>
+
+    <!-- Lighthouse Build status -->
+    <Preference
+        android:key="ligthouse_build_status"
+        android:title="@string/lighthouse_build_status"
         android:summary="@string/summary_placeholder"
         android:selectable="false"
         settings:enableCopying="true"
-        settings:controller="com.android.settings.deviceinfo.firmwareversion.CustomFirmwareVersionPreferenceController"/>
+        settings:controller="com.android.settings.deviceinfo.firmwareversion.LighthouseBuildStatusPreferenceController"/>
 
     <!-- Mainline module version -->
     <Preference

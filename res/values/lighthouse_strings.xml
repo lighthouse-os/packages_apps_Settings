@@ -72,4 +72,8 @@
     <string name="dc_dimming_on_auto_mode_auto">Will turn off automatically</string>
     <string name="keywords_display_dc_dimming">dc dimming, flicker, eye, strain</string>
 
+     <!--   Lighthouse About Phone-->
+    <string name="build_maintainer">Lighthouse Keeper</string>
+    <string name="lighthouse_build_status">Lighthouse Service Status</string>
+
 </resources>
