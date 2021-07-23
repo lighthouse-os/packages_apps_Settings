@@ -21,6 +21,12 @@
     android:title="@string/firmware_version"
     settings:keywords="@string/keywords_android_version">
 
+    <!-- Lighthouse logo -->
+    <PreferenceScreen
+        android:key="lighthouse_logo"
+        android:layout="@layout/lighthouse_logo" 
+        android:selectable="false" />
+
     <!-- Android version -->
     <Preference
         android:key="os_firmware_version"
