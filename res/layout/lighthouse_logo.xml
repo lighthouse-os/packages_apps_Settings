@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright (C) 2021 The Lighthouse Project
+    Copyright (C) 2020-2021 Project Lighthouse
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -11,16 +11,22 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="horizontal" >
 
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lighthouse_animation"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:adjustViewBounds="false"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_lighthouse_branding" />
+        android:layout_gravity="center"
+        android:clickable="false"
+        app:lottie_rawRes="@raw/lighthouse_animated_logo"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true" />
+
 </LinearLayout>
