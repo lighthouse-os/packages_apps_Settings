@@ -44,7 +44,18 @@ android_library {
         "SettingsLib-search-defaults",
     ],
 
-    srcs: ["src/**/*.java"],
+    srcs: [
+        "src/**/*.java",
+        "Supplies/src/**/*.java",
+    ],
+
+    aaptflags: ["--extra-packages com.lighthouse.supplies",
+                "--extra-packages github.com.st235.lib_expandablebottombar",],
+
+    resource_dirs: [
+        "res",
+        "Supplies/res",
+    ],
 
     static_libs: [
         "androidx-constraintlayout_constraintlayout",
@@ -73,6 +84,12 @@ android_library {
         "android.hardware.dumpstate-V1.0-java",
         "android.hardware.dumpstate-V1.1-java",
         "lottie",
+        "expandable-bottombar",
+        "androidx.navigation_navigation-common-ktx",
+        "androidx.navigation_navigation-fragment-ktx",
+        "androidx.navigation_navigation-runtime-ktx",
+        "androidx.navigation_navigation-ui-ktx",
+        "kotlin-stdlib",
     ],
 
     libs: [
@@ -128,4 +145,10 @@ filegroup {
 filegroup {
     name: "Settings_manifest",
     srcs: ["AndroidManifest.xml"],
+}
+
+android_library_import {
+    name: "expandable-bottombar",
+    aars: ["libs/lib-expandablebottombar-release.aar"],
+    sdk_version: "current",
 }
