@@ -78,7 +78,7 @@
         settings:enableCopying="true"
         settings:controller="com.android.settings.deviceinfo.firmwareversion.LighthouseBuildStatusPreferenceController"/>
 
-    <!-- Mainline module version -->
+    <!-- Mainline module version
     <Preference
         android:key="module_version"
         android:title="@string/module_version"
