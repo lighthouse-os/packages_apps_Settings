@@ -32,7 +32,6 @@ import com.android.settings.core.BasePreferenceController;
 public class CustomFirmwareVersionPreferenceController extends BasePreferenceController {
 
     private static final String TAG = "CustomFirmwareVersion";
-    private static final String VERSION_PROPERTY = " ro.lighthouse.build.version";
 
     private final PackageManager mPackageManager;
 
@@ -48,8 +47,7 @@ public class CustomFirmwareVersionPreferenceController extends BasePreferenceCon
 
     @Override
     public CharSequence getSummary() {
-        return SystemProperties.get(VERSION_PROPERTY,
-                mContext.getString(R.string.device_info_default));
+        return mContext.getString(R.string.lighthouse_version);
     }
 
     @Override
