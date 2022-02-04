@@ -60,6 +60,22 @@
             android:title="@string/security_settings_biometric_preference_title"
             android:summary="@string/summary_placeholder"
             settings:keywords="@string/keywords_biometric_settings" />
+
+        <!-- App lock -->
+        <com.android.settingslib.RestrictedPreference
+            android:key="app_lock"
+            android:title="@string/app_lock_title"
+            settings:controller="com.android.settings.security.applock.AppLockSettingsPreferenceController" />
+
+            <Preference
+        android:fragment="com.android.settings.security.SecuritySettings"
+        android:key="security_alt"
+        android:order="10"
+        android:title="@string/aosp_security_settings_title"
+        android:summary="@string/aosp_security_settings_summary"
+        settings:controller="com.android.settings.security.SecurityAltEntryPreferenceController" />
+
+
     </PreferenceCategory>
 
     <PreferenceCategory
