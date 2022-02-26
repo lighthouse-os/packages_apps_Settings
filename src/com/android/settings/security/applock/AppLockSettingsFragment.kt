@@ -27,10 +27,10 @@ import com.android.settings.search.BaseSearchIndexProvider
 import com.android.settingslib.core.AbstractPreferenceController
 import com.android.settingslib.core.lifecycle.Lifecycle
 import com.android.settingslib.search.SearchIndexable
-import com.lighthouse.settings.fragment.LighthouseBasePreferenceController
+import com.lighthouse.settings.fragment.LighthouseDashboardFragment
 
 @SearchIndexable
-class AppLockSettingsFragment : LighthouseBasePreferenceController(),
+class AppLockSettingsFragment : LighthouseDashboardFragment(),
     MenuItem.OnMenuItemClickListener {
 
         private var debugEnabled = SystemProperties.get(DEBUG_PROPERTY, null) == LEVEL_DEBUG
