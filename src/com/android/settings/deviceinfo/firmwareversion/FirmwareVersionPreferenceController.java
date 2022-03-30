@@ -19,6 +19,8 @@ package com.android.settings.deviceinfo.firmwareversion;
 import android.content.Context;
 import android.os.Build;
 
+import com.android.settings.R;
+
 import com.android.settings.core.BasePreferenceController;
 
 public class FirmwareVersionPreferenceController extends BasePreferenceController {
@@ -34,6 +36,6 @@ public class FirmwareVersionPreferenceController extends BasePreferenceControlle
 
     @Override
     public CharSequence getSummary() {
-        return Build.VERSION.RELEASE_OR_CODENAME;
+        return mContext.getString(R.string.lighthouse_custom_version);
     }
 }
